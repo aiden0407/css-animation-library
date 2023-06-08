@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Draggable Image Example</title>
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    img {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .draggable-image {
+      position: absolute;
+      width: 100px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <img id="image1" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  <img id="image2" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  <img id="image3" class="draggable-image" src="그림1.png" alt="Draggable Image">
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const images = document.querySelectorAll('.draggable-image');
+      let activeImage = null;
+      let initialX = 0;
+      let initialY = 0;
+
+      function dragStart(e) {
+        activeImage = e.target;
+        initialX = e.clientX - activeImage.offsetLeft;
+        initialY = e.clientY - activeImage.offsetTop;
+      }
+
+      function dragEnd() {
+        activeImage = null;
+        initialX = 0;
+        initialY = 0;
+      }
+
+      function drag(e) {
+        if (activeImage) {
+          e.preventDefault();
+          const x = e.clientX - initialX;
+          const y = e.clientY - initialY;
+          activeImage.style.left = x + 'px';
+          activeImage.style.top = y + 'px';
+          console.log(`Current Position: X: ${x}px, Y: ${y}px`);
+        }
+      }
+
+      images.forEach(function(image) {
+        image.addEventListener('mousedown', dragStart);
+        image.addEventListener('mouseup', dragEnd);
+        image.addEventListener('mouseleave', dragEnd);
+      });
+
+      document.addEventListener('mousemove', drag);
+    });
+  </script>
+</body>
+
+</html>
