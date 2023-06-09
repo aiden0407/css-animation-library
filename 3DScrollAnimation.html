@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Scroll-based 3D Image Rotation</title>
+  <style>
+    body {
+      height: 20000px;
+      display: flex;
+      justify-content: center;
+    }
+
+    .container {
+      width: 100%;
+      height: 2000px;
+      background: radial-gradient(#fff, #ccc);
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    #cube {
+      width: 100px;
+      height: 100px;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      transform-style: preserve-3d;
+    }
+
+    .face {
+      height: 100%;
+      left: 0;
+      position: absolute;
+      top: 0;
+      width: 100%;
+    }
+
+    .front {
+      background: #333;
+      transform: translateZ(50px);
+    }
+
+    .back {
+      background: #444;
+      transform: translateZ(-50px);
+    }
+
+    .left {
+      background: #555;
+      transform: translateX(-50px) rotateY(90deg);
+    }
+
+    .right {
+      background: #666;
+      transform: translateX(50px) rotateY(90deg);
+    }
+
+    .top {
+      background: #777;
+      transform: translateY(-50px) rotateX(90deg);
+    }
+
+    .bottom {
+      background: #888;
+      transform: translateY(50px) rotateX(90deg);
+    }
+  </style>
+  <script>
+    window.addEventListener('scroll', function() {
+      var scrollPos = window.scrollY || window.scrollTop || document.getElementsByTagName("html")[0].scrollTop;
+
+      // Calculate rotation based on scroll position
+      var rotationX = scrollPos / 10;
+      var rotationY = scrollPos / 15;
+      var rotationZ = scrollPos / 5;
+
+      // Apply rotation transform
+      var cube = document.getElementById('cube');
+      cube.style.transform = `translate(-50%, -50%) rotateX(${rotationX}deg) rotateY(${rotationY}deg) rotateZ(${rotationZ}deg)`;
+    });
+  </script>
+</head>
+<body>
+  <div class="container">
+    <div id="cube">
+      <div class="face front"></div>
+      <div class="face back"></div>
+      <div class="face left"></div>
+      <div class="face right"></div>
+      <div class="face top"></div>
+      <div class="face bottom"></div>
+    </div>
+
+  </div>
+</body>
+</html>
