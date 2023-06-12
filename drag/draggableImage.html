@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Draggable Image Example</title>
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    img {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .draggable_image {
+      position: absolute;
+      width: 100px;
+      cursor: pointer;
+    }
+
+    #image_group1 {
+      position: absolute;
+    }
+
+    #image1 {
+      left: 0px;
+    }
+
+    #image2 {
+      left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="image_group1">
+    <img id="image1" class="draggable_image" src="그림1.png" alt="Draggable Image">
+    <img id="image2" class="draggable_image" src="그림1.png" alt="Draggable Image">
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const draggableImages = document.querySelectorAll('.draggable_image');
+      let activeImageGroup = null;
+      let initialX = 0;
+      let initialY = 0;
+
+      let isDragging = false;
+      var initialX_mobile, initialY_mobile;
+      var offsetX = 0, offsetY = 0;
+
+      function dragStart(e) {
+        activeImageGroup = e.target.parentElement;
+        initialX = e.clientX - activeImageGroup.offsetLeft;
+        initialY = e.clientY - activeImageGroup.offsetTop;
+      }
+      function touchstart(e) {
+        isDragging = true;
+        initialX_mobile = e.touches[0].clientX - offsetX;
+        initialY_mobile = e.touches[0].clientY - offsetY;
+      }
+
+      function drag(e) {
+        if (activeImageGroup) {
+          e.preventDefault();
+          const x = e.clientX - initialX;
+          const y = e.clientY - initialY;
+          activeImageGroup.style.left = x + 'px';
+          activeImageGroup.style.top = y + 'px';
+        }
+      }
+      function touchmove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var currentX = e.touches[0].clientX;
+        var currentY = e.touches[0].clientY;
+        offsetX = currentX - initialX_mobile;
+        offsetY = currentY - initialY_mobile;
+        e.target.parentElement.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
+      }
+
+      function dragEnd() {
+        activeImageGroup = null;
+        initialX = 0;
+        initialY = 0;
+      }
+      function touchend() {
+        isDragging = false;
+      }
+
+      draggableImages.forEach(function (image) {
+        image.addEventListener('mousedown', dragStart);
+        image.addEventListener('mouseup', dragEnd);
+        image.addEventListener('mouseleave', dragEnd);
+
+        image.addEventListener('touchstart', touchstart);
+        image.addEventListener('touchmove', touchmove);
+        image.addEventListener('touchend', touchend);
+      });
+      document.addEventListener('mousemove', drag);
+    });
+  </script>
+</body>
+
+</html>
