@@ -1,0 +1,50 @@
+.glitch {
+	margin-top: 20px;
+  position: absolute;
+	width: 590px;
+  height: 305px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(그림1.png);
+  
+  &::before,
+  &::after {
+    display: none;
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    width: 590px;
+    height: 305px;
+    clip: rect(0, 0, 0, 0);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+  }
+  &::before {
+    left: -10px;
+    animation: glitch-effect 2s infinite linear alternate-reverse;
+    background-image: url(그림1.png);
+  }
+  &::after {
+    left: 10px;
+    animation: glitch-effect 2s infinite linear alternate-reverse;
+    background-image: url(그림1.png);
+  }
+}
+
+.glitch.active::before, .glitch.active::after {
+  display: block;
+}
+
+$steps: 40;
+
+@keyframes glitch-effect{
+  @for $i from 0 through $steps{
+      #{percentage($i*(1/$steps))}{
+          clip: rect(random(305) + px, 590px, random(305) + px, 0);
+      }
+  }
+}

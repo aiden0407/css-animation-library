@@ -1,0 +1,167 @@
+@charset "UTF-8";
+.glitch {
+  margin-top: 20px;
+  position: absolute;
+  width: 590px;
+  height: 305px;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-image: url(그림1.png);
+}
+.glitch::before, .glitch::after {
+  display: none;
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  width: 590px;
+  height: 305px;
+  clip: rect(0, 0, 0, 0);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+}
+.glitch::before {
+  left: -10px;
+  animation: glitch-effect 2s infinite linear alternate-reverse;
+  background-image: url(그림1.png);
+}
+.glitch::after {
+  left: 10px;
+  animation: glitch-effect 2s infinite linear alternate-reverse;
+  background-image: url(그림1.png);
+}
+
+.glitch.active::before, .glitch.active::after {
+  display: block;
+}
+
+@keyframes glitch-effect {
+  0% {
+    clip: rect(106px, 590px, 242px, 0);
+  }
+  2.5% {
+    clip: rect(79px, 590px, 109px, 0);
+  }
+  5% {
+    clip: rect(111px, 590px, 59px, 0);
+  }
+  7.5% {
+    clip: rect(72px, 590px, 226px, 0);
+  }
+  10% {
+    clip: rect(19px, 590px, 90px, 0);
+  }
+  12.5% {
+    clip: rect(206px, 590px, 98px, 0);
+  }
+  15% {
+    clip: rect(68px, 590px, 44px, 0);
+  }
+  17.5% {
+    clip: rect(137px, 590px, 139px, 0);
+  }
+  20% {
+    clip: rect(300px, 590px, 229px, 0);
+  }
+  22.5% {
+    clip: rect(41px, 590px, 95px, 0);
+  }
+  25% {
+    clip: rect(281px, 590px, 155px, 0);
+  }
+  27.5% {
+    clip: rect(105px, 590px, 55px, 0);
+  }
+  30% {
+    clip: rect(198px, 590px, 145px, 0);
+  }
+  32.5% {
+    clip: rect(80px, 590px, 56px, 0);
+  }
+  35% {
+    clip: rect(84px, 590px, 305px, 0);
+  }
+  37.5% {
+    clip: rect(47px, 590px, 3px, 0);
+  }
+  40% {
+    clip: rect(27px, 590px, 7px, 0);
+  }
+  42.5% {
+    clip: rect(63px, 590px, 104px, 0);
+  }
+  45% {
+    clip: rect(114px, 590px, 108px, 0);
+  }
+  47.5% {
+    clip: rect(193px, 590px, 90px, 0);
+  }
+  50% {
+    clip: rect(130px, 590px, 206px, 0);
+  }
+  52.5% {
+    clip: rect(105px, 590px, 133px, 0);
+  }
+  55% {
+    clip: rect(168px, 590px, 105px, 0);
+  }
+  57.5% {
+    clip: rect(229px, 590px, 116px, 0);
+  }
+  60% {
+    clip: rect(196px, 590px, 7px, 0);
+  }
+  62.5% {
+    clip: rect(211px, 590px, 76px, 0);
+  }
+  65% {
+    clip: rect(253px, 590px, 178px, 0);
+  }
+  67.5% {
+    clip: rect(35px, 590px, 120px, 0);
+  }
+  70% {
+    clip: rect(177px, 590px, 299px, 0);
+  }
+  72.5% {
+    clip: rect(5px, 590px, 227px, 0);
+  }
+  75% {
+    clip: rect(57px, 590px, 54px, 0);
+  }
+  77.5% {
+    clip: rect(199px, 590px, 58px, 0);
+  }
+  80% {
+    clip: rect(90px, 590px, 205px, 0);
+  }
+  82.5% {
+    clip: rect(152px, 590px, 155px, 0);
+  }
+  85% {
+    clip: rect(258px, 590px, 108px, 0);
+  }
+  87.5% {
+    clip: rect(218px, 590px, 2px, 0);
+  }
+  90% {
+    clip: rect(203px, 590px, 126px, 0);
+  }
+  92.5% {
+    clip: rect(106px, 590px, 8px, 0);
+  }
+  95% {
+    clip: rect(213px, 590px, 61px, 0);
+  }
+  97.5% {
+    clip: rect(72px, 590px, 188px, 0);
+  }
+  100% {
+    clip: rect(38px, 590px, 86px, 0);
+  }
+}
+
+/*# sourceMappingURL=glitchEffectImage2.css.map */
