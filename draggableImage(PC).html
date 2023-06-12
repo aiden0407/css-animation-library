@@ -16,18 +16,31 @@
       -ms-user-select: none;
     }
 
+    .image-group {
+      position: absolute;
+    }
+
     .draggable-image {
       position: absolute;
       width: 100px;
       cursor: pointer;
     }
+
+    #image1 {
+      left: 0px;
+    }
+
+    #image2 {
+      left: 200px;
+    }
   </style>
 </head>
 
 <body>
-  <img id="image1" class="draggable-image" src="그림1.png" alt="Draggable Image">
-  <img id="image2" class="draggable-image" src="그림1.png" alt="Draggable Image">
-  <img id="image3" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  <div id="image-group1" class="image-group">
+    <img id="image1" class="draggable-image" src="그림1.png" alt="Draggable Image">
+    <img id="image2" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
@@ -37,7 +50,7 @@
       let initialY = 0;
 
       function dragStart(e) {
-        activeImage = e.target;
+        activeImage = e.target.parentElement;
         initialX = e.clientX - activeImage.offsetLeft;
         initialY = e.clientY - activeImage.offsetTop;
       }
@@ -55,7 +68,6 @@
           const y = e.clientY - initialY;
           activeImage.style.left = x + 'px';
           activeImage.style.top = y + 'px';
-          console.log(`Current Position: X: ${x}px, Y: ${y}px`);
         }
       }
 
