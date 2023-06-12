@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <title>Draggable Image Example</title>
+  <style>
+    body {
+      overflow: hidden;
+    }
+
+    img {
+      user-select: none;
+      -moz-user-select: none;
+      -webkit-user-drag: none;
+      -webkit-user-select: none;
+      -ms-user-select: none;
+    }
+
+    .image-group {
+      position: absolute;
+    }
+
+    .draggable-image {
+      position: absolute;
+      width: 100px;
+      cursor: pointer;
+    }
+
+    #image1 {
+      left: 0px;
+    }
+
+    #image2 {
+      left: 200px;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="image-group1" class="image-group">
+    <img id="image1" class="draggable-image" src="그림1.png" alt="Draggable Image">
+    <img id="image2" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  </div>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const draggableImages = document.querySelectorAll('.draggable-image');
+      let isDragging = false;
+      var initialX, initialY;
+      var offsetX = 0, offsetY = 0;
+
+      function touchstart(e) {
+        isDragging = true;
+        initialX = e.touches[0].clientX - offsetX;
+        initialY = e.touches[0].clientY - offsetY;
+      }
+
+      function touchmove(e) {
+        if (!isDragging) return;
+        e.preventDefault();
+        var currentX = e.touches[0].clientX;
+        var currentY = e.touches[0].clientY;
+        offsetX = currentX - initialX;
+        offsetY = currentY - initialY;
+        e.target.parentElement.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
+      }
+
+      function touchend() {
+        isDragging = false;
+      }
+
+      draggableImages.forEach(function (image) {
+        image.addEventListener('touchstart', touchstart);
+        image.addEventListener('touchmove', touchmove);
+        image.addEventListener('touchend', touchend);
+      });
+    });
+  </script>
+</body>
+
+</html>
