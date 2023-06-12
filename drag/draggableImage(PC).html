@@ -16,11 +16,11 @@
       -ms-user-select: none;
     }
 
-    .image-group {
+    #image_group1 {
       position: absolute;
     }
 
-    .draggable-image {
+    .draggable_image {
       position: absolute;
       width: 100px;
       cursor: pointer;
@@ -37,46 +37,45 @@
 </head>
 
 <body>
-  <div id="image-group1" class="image-group">
-    <img id="image1" class="draggable-image" src="그림1.png" alt="Draggable Image">
-    <img id="image2" class="draggable-image" src="그림1.png" alt="Draggable Image">
+  <div id="image_group1">
+    <img id="image1" class="draggable_image" src="그림1.png" alt="Draggable Image">
+    <img id="image2" class="draggable_image" src="그림1.png" alt="Draggable Image">
   </div>
 
   <script>
     document.addEventListener('DOMContentLoaded', function () {
-      const images = document.querySelectorAll('.draggable-image');
-      let activeImage = null;
+      const draggableImages = document.querySelectorAll('.draggable_image');
+      let activeImageGroup = null;
       let initialX = 0;
       let initialY = 0;
 
       function dragStart(e) {
-        activeImage = e.target.parentElement;
-        initialX = e.clientX - activeImage.offsetLeft;
-        initialY = e.clientY - activeImage.offsetTop;
+        activeImageGroup = e.target.parentElement;
+        initialX = e.clientX - activeImageGroup.offsetLeft;
+        initialY = e.clientY - activeImageGroup.offsetTop;
+      }
+
+      function drag(e) {
+        if (activeImageGroup) {
+          e.preventDefault();
+          const x = e.clientX - initialX;
+          const y = e.clientY - initialY;
+          activeImageGroup.style.left = x + 'px';
+          activeImageGroup.style.top = y + 'px';
+        }
       }
 
       function dragEnd() {
-        activeImage = null;
+        activeImageGroup = null;
         initialX = 0;
         initialY = 0;
       }
 
-      function drag(e) {
-        if (activeImage) {
-          e.preventDefault();
-          const x = e.clientX - initialX;
-          const y = e.clientY - initialY;
-          activeImage.style.left = x + 'px';
-          activeImage.style.top = y + 'px';
-        }
-      }
-
-      images.forEach(function(image) {
+      draggableImages.forEach(function (image) {
         image.addEventListener('mousedown', dragStart);
         image.addEventListener('mouseup', dragEnd);
         image.addEventListener('mouseleave', dragEnd);
       });
-
       document.addEventListener('mousemove', drag);
     });
   </script>
