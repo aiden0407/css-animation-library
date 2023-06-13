@@ -49,34 +49,32 @@
   <script>
     document.addEventListener('DOMContentLoaded', function () {
       const draggableImages = document.querySelectorAll('.draggable_image');
-      let isDragging = false;
-      var initialX, initialY;
-      var offsetX = 0, offsetY = 0;
+      let activeImageGroup = null;
+      let initialX, initialY;
 
       function touchstart(e) {
-        isDragging = true;
-        initialX = e.touches[0].clientX - offsetX;
-        initialY = e.touches[0].clientY - offsetY;
+        activeImageGroup = e.target.parentElement;
+        initialX = e.touches[0].clientX - activeImageGroup.offsetLeft;
+        initialY = e.touches[0].clientY - activeImageGroup.offsetTop;
       }
 
       function touchmove(e) {
-        if (!isDragging) return;
+        if (!activeImageGroup) return;
         e.preventDefault();
-        var currentX = e.touches[0].clientX;
-        var currentY = e.touches[0].clientY;
-        offsetX = currentX - initialX;
-        offsetY = currentY - initialY;
-        e.target.parentElement.style.transform = 'translate(' + offsetX + 'px, ' + offsetY + 'px)';
+        const x = e.touches[0].clientX - initialX;
+        const y = e.touches[0].clientY - initialY;
+        activeImageGroup.style.left = x + 'px';
+        activeImageGroup.style.top = y + 'px';
       }
 
-      function touchend() {
-        isDragging = false;
+      function end() {
+        activeImageGroup = null;
       }
 
       draggableImages.forEach(function (image) {
         image.addEventListener('touchstart', touchstart);
         image.addEventListener('touchmove', touchmove);
-        image.addEventListener('touchend', touchend);
+        image.addEventListener('touchend', end);
       });
     });
   </script>
