@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>마우스 따라오는 그림</title>
+    <style>
+        #container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+        }
+
+        #image {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 20px;
+            height: 20px;
+            background-color: tomato;
+            border-radius: 50%;
+            transition: all 0.1s ease;
+            animation: blink-animation 0.5s infinite;
+        }
+
+        @keyframes blink-animation {
+            0% {
+                opacity: 1;
+            }
+
+            50% {
+                opacity: 0;
+            }
+
+            100% {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div id="container">
+        <div id="image"></div>
+    </div>
+
+    <script>
+        var container = document.getElementById('container');
+        var image = document.getElementById('image');
+
+        container.addEventListener('mousemove', function (event) {
+            var x = event.clientX - container.offsetLeft - 10;
+            var y = event.clientY - container.offsetTop - 10;
+
+            image.style.transform = 'translate(' + x + 'px, ' + y + 'px)';
+        });
+    </script>
+</body>
+
+</html>
